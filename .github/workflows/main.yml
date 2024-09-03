@@ -18,7 +18,11 @@ jobs:
         mkdir -p ~/.ssh
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H localhost >> ~/.ssh/known_hosts
 
-    - name: Deploy code
+    - name: Transfer deployment script
+      run: scp -o StrictHostKeyChecking=no deploy.ps1 ahtesham.ul.haq@localhost:D:/Ahtesham ul haq/Projects/Learning/Github/webdeploy/WebApplicationMy/
+
+    - name: Run deployment script
       run: |
         ssh -o StrictHostKeyChecking=no ahtesham.ul.haq@localhost "powershell -File 'D:\\Ahtesham ul haq\\Projects\\Learning\\Github\\webdeploy\\WebApplicationMy\\deploy.ps1'"
