@@ -20,4 +20,6 @@ jobs:
           KEY: ${{ secrets.KEY }}
           SCRIPT_PATH: 'D:/Ahtesham ul haq/Projects/Learning/Github/webdeploy/WebApplicationMy/deploy.ps1'
         run: |
-          ssh -i $KEY -o StrictHostKeyChecking=no $USERNAME@$HOST "powershell -File $SCRIPT_PATH"
+          echo "$KEY" > private_key.pem
+          chmod 600 private_key.pem
+          ssh -i private_key.pem -o StrictHostKeyChecking=no $USERNAME@$HOST "powershell -File $SCRIPT_PATH"
