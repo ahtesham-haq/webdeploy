@@ -21,4 +21,4 @@ jobs:
 
     - name: Deploy code
       run: |
-        ssh -o StrictHostKeyChecking=no user@your-server 'bash -s' < deploy.sh
+        ssh -o StrictHostKeyChecking=no ahtesham.ul.haq@localhost 'bash -s' < deploy.ps1
