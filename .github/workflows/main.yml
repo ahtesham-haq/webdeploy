@@ -1,4 +1,4 @@
-name: Deploy to IIS
+name: Deploy
 
 on:
   push:
@@ -10,14 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Set up SSH key
-        run: |
-          echo "${{ secrets.KEY }}" > private_key.pem
-          chmod 600 private_key.pem
+    - name: Set up SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
 
-      - name: Run deployment script
-        run: |
-          ssh -i private_key.pem -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} "powershell -File 'D:/Ahtesham ul haq/Projects/Learning/Github/webdeploy/WebApplicationMy/deploy.ps1'"
+    - name: Deploy code
+      run: |
+        ssh -o StrictHostKeyChecking=no user@your-server 'bash -s' < deploy.sh
