@@ -21,15 +21,8 @@ jobs:
         ssh-keyscan -H localhost >> ~/.ssh/known_hosts
 
     - name: Transfer deployment script
-      run: |
-        # Debugging output
-        ls -l deploy.ps1
-        # Use Unix-style path for SCP
-        scp -o StrictHostKeyChecking=no deploy.ps1 ahtesham.ul.haq@localhost:/home/ahtesham/deploy.ps1
+      run: scp -o StrictHostKeyChecking=no deploy.ps1 ahtesham.ul.haq@localhost:'D:/Ahtesham ul haq/Projects/Learning/Github/webdeploy/WebApplicationMy/'
 
     - name: Run deployment script
       run: |
-        # Debugging output
-        ssh -o StrictHostKeyChecking=no ahtesham.ul.haq@localhost "ls -l /home/ahtesham/deploy.ps1"
-        # Execute the script with the corrected path
         ssh -o StrictHostKeyChecking=no ahtesham.ul.haq@localhost "powershell -File 'D:/Ahtesham ul haq/Projects/Learning/Github/webdeploy/WebApplicationMy/deploy.ps1'"
