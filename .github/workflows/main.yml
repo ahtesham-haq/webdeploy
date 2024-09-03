@@ -22,3 +22,4 @@ jobs:
     - name: Deploy code
       run: |
         ssh -o StrictHostKeyChecking=no ahtesham.ul.haq@localhost 'bash -s' < deploy.ps1
+        ssh -o StrictHostKeyChecking=no ahtesham.ul.haq@localhost "powershell -File 'D:\\Ahtesham ul haq\\Projects\\Learning\\Github\\webdeploy\\WebApplicationMy\\deploy.ps1'"
