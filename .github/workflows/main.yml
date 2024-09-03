@@ -20,5 +20,5 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.DEPLOYMENT_KEY }}
         script: |
-          cd D:/Inetpub/wwwroot/DeployScripts
+          cd D:/Ahtesham ul haq/Projects/Learning/Github/webdeploy/WebApplicationMy
           ./deploy.ps1
