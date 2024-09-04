@@ -13,16 +13,16 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up SSH key2
+    - name: Set up SSH key
       run: |
         mkdir -p ~/.ssh
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H localhost >> ~/.ssh/known_hosts
+        ssh-keyscan -H your.server.ip.address >> ~/.ssh/known_hosts
 
     - name: Transfer deployment script
-      run: scp -o StrictHostKeyChecking=no deploy.ps1 ahtesham.ul.haq@localhost:'D:/Ahtesham ul haq/Projects/Learning/Github/webdeploy/WebApplicationMy/'
+      run: scp -o StrictHostKeyChecking=no deploy.ps1 your_user@your.server.ip.address:/path/to/deploy.ps1
 
     - name: Run deployment script
       run: |
-        ssh -o StrictHostKeyChecking=no ahtesham.ul.haq@localhost "powershell -File 'D:/Ahtesham ul haq/Projects/Learning/Github/webdeploy/WebApplicationMy/deploy.ps1'"
+        ssh -o StrictHostKeyChecking=no your_user@your.server.ip.address "powershell -File /path/to/deploy.ps1"
