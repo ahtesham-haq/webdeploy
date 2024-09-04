@@ -22,8 +22,8 @@ jobs:
 
     - name: Transfer deployment script
       run: |
-        scp -o StrictHostKeyChecking=no deploy.ps1 dpgjv\ahtesham.ul.haq@WSAMZN-PUSESCJK:"D:/Ahtesham ul haq/Projects/Learning/Github/webdeploy/WebApplicationMy/deploy.ps1"
+        scp -o StrictHostKeyChecking=no deploy.ps1 dpgjv\ahtesham.ul.haq@localhost:"D:/Ahtesham ul haq/Projects/Learning/Github/webdeploy/WebApplicationMy/deploy.ps1"
 
     - name: Run deployment script
       run: |
-        ssh -o StrictHostKeyChecking=no dpgjv\ahtesham.ul.haq@WSAMZN-PUSESCJK "powershell -File 'D:/Ahtesham ul haq/Projects/Learning/Github/webdeploy/WebApplicationMy/deploy.ps1'"
+        ssh -o StrictHostKeyChecking=no dpgjv\ahtesham.ul.haq@localhost "powershell -File 'D:/Ahtesham ul haq/Projects/Learning/Github/webdeploy/WebApplicationMy/deploy.ps1'"
