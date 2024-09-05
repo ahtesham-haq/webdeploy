@@ -15,13 +15,13 @@ jobs:
 
       - name: Deploy to IIS via PowerShell
         run: |
-          $password = ConvertTo-SecureString ${{ 'x8st?frlz5QE' }} -AsPlainText -Force
-          $cred = New-Object System.Management.Automation.PSCredential(${{ secrets.ahtesham.ul.haq }}, $password)
-          Invoke-Command -ComputerName ${{ localhost }} -Credential $cred -ScriptBlock {
+          $password = ConvertTo-SecureString ${{ secrets.IIS_PASSWORD }} -AsPlainText -Force
+          $cred = New-Object System.Management.Automation.PSCredential(${{ secrets.IIS_USERNAME }}, $password)
+          Invoke-Command -ComputerName ${{ secrets.IIS_SERVER }} -Credential $cred -ScriptBlock {
               cd 'D:\Ahtesham ul haq\Projects\Learning\Github\webdeploy\WebApplicationMy'
-              git pull https://$env:GITHUB_USER:$env:GITHUB_PAT@github.com/your-username/your-repo.git
+              git pull https://$env:GITHUB_USER:$env:GITHUB_PAT@github.com/ahtesham-haq/webdeploy.git
           }
         shell: pwsh
     env:
-        GITHUB_USER: ${{ ahtesham-haq }}
+        GITHUB_USER: ${{ secrets.GITHUBUSER }}
         GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
