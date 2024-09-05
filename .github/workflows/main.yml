@@ -14,7 +14,9 @@ jobs:
 
       - name: Deploy to IIS Server
         run: |
-          Write-Output "Can you see this"
+          Write-Output "Can you see this "
+          Write-Output "https://$env:GITHUB_USER:$env:GITHUB_PAT@ahtesham-haq/webdeploy.git"
+          Write-Output "Can you see this 2"
           $password = ConvertTo-SecureString "${{ secrets.IIS_PASSWORD }}" -AsPlainText -Force
           $cred = New-Object System.Management.Automation.PSCredential("${{ secrets.IIS_USERNAME }}", $password)
 
