@@ -9,11 +9,6 @@ jobs:
   deploy:
     runs-on: windows-latest
     steps:
-      - name: Install Required Modules
-        run: |
-          Install-Module -Name PSWSMan -Force -SkipPublisherCheck
-          Install-Module -Name Microsoft.PowerShell.Management -Force
-
       - name: Execute Remote PowerShell on IIS Server
         run: |
           $password = ConvertTo-SecureString ${{ secrets.IIS_PASSWORD }} -AsPlainText -Force
@@ -25,4 +20,4 @@ jobs:
         shell: pwsh
     env:
         GITHUB_USER: ${{ secrets.GITHUB_USER }}
-        GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
+        GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
