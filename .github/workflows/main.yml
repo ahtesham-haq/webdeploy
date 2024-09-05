@@ -9,19 +9,20 @@ jobs:
   deploy:
     runs-on: windows-latest
     steps:
-      - name: Install WinRM
+      - name: Install Required Modules
         run: |
-          Install-Module -Name PSRemoting -Force -SkipPublisherCheck
+          Install-Module -Name PSWSMan -Force -SkipPublisherCheck
+          Install-Module -Name Microsoft.PowerShell.Management -Force
 
-      - name: Deploy to IIS via PowerShell
+      - name: Execute Remote PowerShell on IIS Server
         run: |
           $password = ConvertTo-SecureString ${{ secrets.IIS_PASSWORD }} -AsPlainText -Force
           $cred = New-Object System.Management.Automation.PSCredential(${{ secrets.IIS_USERNAME }}, $password)
           Invoke-Command -ComputerName ${{ secrets.IIS_SERVER }} -Credential $cred -ScriptBlock {
-              cd 'D:\Ahtesham ul haq\Projects\Learning\Github\webdeploy\WebApplicationMy'
-              git pull https://$env:GITHUB_USER:$env:GITHUB_PAT@github.com/ahtesham-haq/webdeploy.git
+              cd D:\Inetpub\wwwroot\myDeploy
+              git pull https://$env:GITHUB_USER:$env:GITHUB_PAT@github.com/your-username/your-repo.git
           }
         shell: pwsh
     env:
-        GITHUB_USER: ${{ secrets.GITHUBUSER }}
-        GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_USER: ${{ secrets.GITHUB_USER }}
+        GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
