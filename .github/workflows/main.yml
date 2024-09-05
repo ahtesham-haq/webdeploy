@@ -15,7 +15,7 @@ jobs:
 
       - name: Deploy to IIS via PowerShell
         run: |
-          $password = ConvertTo-SecureString ${{ x8st?frlz5QE }} -AsPlainText -Force
+          $password = ConvertTo-SecureString ${{ 'x8st?frlz5QE' }} -AsPlainText -Force
           $cred = New-Object System.Management.Automation.PSCredential(${{ secrets.ahtesham.ul.haq }}, $password)
           Invoke-Command -ComputerName ${{ localhost }} -Credential $cred -ScriptBlock {
               cd 'D:\Ahtesham ul haq\Projects\Learning\Github\webdeploy\WebApplicationMy'
