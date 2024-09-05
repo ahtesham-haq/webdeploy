@@ -9,6 +9,9 @@ jobs:
   deploy:
     runs-on: windows-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Execute Remote PowerShell on IIS Server
         run: |
           $password = ConvertTo-SecureString "${{ secrets.IIS_PASSWORD }}" -AsPlainText -Force
@@ -18,6 +21,6 @@ jobs:
               git pull https://$env:GITHUB_USER:$env:GITHUB_PAT@github.com/your-username/your-repo.git
           }
         shell: pwsh
-    env:
-        GITHUB_USER: ${{ secrets.GITHUB_USER }}
-        GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_USER: ${{ secrets.GITHUB_USER }}
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
