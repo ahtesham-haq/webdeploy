@@ -12,7 +12,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Execute Remote PowerShell on IIS Server
+      - name: Execute Remote PowerShell on IIS Server2
         run: |
           $password = ConvertTo-SecureString "${{ secrets.IIS_PASSWORD }}" -AsPlainText -Force
           $cred = New-Object System.Management.Automation.PSCredential("${{ secrets.IIS_USERNAME }}", $password)
