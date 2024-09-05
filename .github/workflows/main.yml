@@ -29,6 +29,6 @@ jobs:
         run: |
           pwsh -Command "& {
            
-            $cred = New-Object System.Management.Automation.PSCredential('ahtesham.ul.haq', 'x8st?frlz5QE')
-            Invoke-Command -ComputerName '10.10.16.164' -Credential $cred -ScriptBlock { Get-Process }
+           
+            Invoke-Command -ComputerName '10.10.16.164' -Credential New-Object System.Management.Automation.PSCredential('ahtesham.ul.haq', 'x8st?frlz5QE') -ScriptBlock { Get-Process }
           }"
