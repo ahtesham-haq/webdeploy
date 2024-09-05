@@ -11,9 +11,9 @@ jobs:
     steps:
       - name: Execute Remote PowerShell on IIS Server
         run: |
-          $password = ConvertTo-SecureString ${{ secrets.IIS_PASSWORD }} -AsPlainText -Force
-          $cred = New-Object System.Management.Automation.PSCredential(${{ secrets.IIS_USERNAME }}, $password)
-          Invoke-Command -ComputerName ${{ secrets.IIS_SERVER }} -Credential $cred -ScriptBlock {
+          $password = ConvertTo-SecureString "${{ secrets.IIS_PASSWORD }}" -AsPlainText -Force
+          $cred = New-Object System.Management.Automation.PSCredential("${{ secrets.IIS_USERNAME }}", $password)
+          Invoke-Command -ComputerName "${{ secrets.IIS_SERVER }}" -Credential $cred -ScriptBlock {
               cd D:\Inetpub\wwwroot\myDeploy
               git pull https://$env:GITHUB_USER:$env:GITHUB_PAT@github.com/your-username/your-repo.git
           }
