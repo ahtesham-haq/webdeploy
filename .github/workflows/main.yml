@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy to IIS Server
 
 on:
   push:
@@ -7,23 +7,21 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
-
+    runs-on: windows-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Install WinRM
+        run: |
+          Install-Module -Name PSRemoting -Force -SkipPublisherCheck
 
-    - name: Set up SSH key
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H localhost >> ~/.ssh/known_hosts
-
-    - name: Transfer deployment script
-      run: |
-        scp -o StrictHostKeyChecking=no deploy.ps1 ahtesham.ul.haq@localhost:"D:/Ahtesham ul haq/Projects/Learning/Github/webdeploy/WebApplicationMy/deploy.ps1"
-
-    - name: Run deployment script
-      run: |
-        ssh -o StrictHostKeyChecking=no ahtesham.ul.haq@localhost "powershell -File 'D:/Ahtesham ul haq/Projects/Learning/Github/webdeploy/WebApplicationMy/deploy.ps1'"
+      - name: Deploy to IIS via PowerShell
+        run: |
+          $password = ConvertTo-SecureString ${{ x8st?frlz5QE }} -AsPlainText -Force
+          $cred = New-Object System.Management.Automation.PSCredential(${{ secrets.ahtesham.ul.haq }}, $password)
+          Invoke-Command -ComputerName ${{ localhost }} -Credential $cred -ScriptBlock {
+              cd 'D:\Ahtesham ul haq\Projects\Learning\Github\webdeploy\WebApplicationMy'
+              git pull https://$env:GITHUB_USER:$env:GITHUB_PAT@github.com/your-username/your-repo.git
+          }
+        shell: pwsh
+    env:
+        GITHUB_USER: ${{ ahtesham-haq }}
+        GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
