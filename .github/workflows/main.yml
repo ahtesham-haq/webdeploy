@@ -28,7 +28,7 @@ jobs:
           IIS_SERVER: ${{ secrets.IIS_SERVER }}
         run: |
           pwsh -Command "& {
-            $password = ConvertTo-SecureString $env:IIS_PASSWORD -AsPlainText -Force
-            $cred = New-Object System.Management.Automation.PSCredential($env:IIS_USERNAME, $password)
-            Invoke-Command -ComputerName $env:IIS_SERVER -Credential $cred -ScriptBlock { Get-Process }
+            $password = ConvertTo-SecureString '$env:IIS_PASSWORD' -AsPlainText -Force
+            $cred = New-Object System.Management.Automation.PSCredential('$env:IIS_USERNAME', $password)
+            Invoke-Command -ComputerName '$env:IIS_SERVER' -Credential $cred -ScriptBlock { Get-Process }
           }"
