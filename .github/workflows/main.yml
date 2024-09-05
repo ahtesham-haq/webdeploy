@@ -27,8 +27,6 @@ jobs:
           IIS_PASSWORD: ${{ secrets.IIS_PASSWORD }}
           IIS_SERVER: ${{ secrets.IIS_SERVER }}
         run: |
-          pwsh -Command "& {
-           
-           
-            Invoke-Command -ComputerName '10.10.16.164' -Credential New-Object System.Management.Automation.PSCredential('ahtesham.ul.haq', 'x8st?frlz5QE') -ScriptBlock { Get-Process }
-          }"
+          pwsh -Command "& { Invoke-Command -ComputerName '10.10.16.164' -Credential (New-Object System.Management.Automation.PSCredential('ahtesham.ul.haq', (ConvertTo-SecureString 'x8st?frlz5QE' -AsPlainText -Force))) -ScriptBlock { Get-Process } }"
+
+
