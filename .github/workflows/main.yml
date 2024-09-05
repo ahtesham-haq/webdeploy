@@ -13,7 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Run PowerShell script as Administrator
+      - name: Run PowerShell script as Administratore
         shell: pwsh
         run: |
           Start-Process pwsh -ArgumentList "D:\Ahtesham ul haq\Projects\Learning\Github\webdeploy\WebApplicationMy\deploy.ps1" -Verb RunAs -Wait
