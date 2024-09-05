@@ -13,10 +13,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up PowerShell
-        uses: pwsh/setup-powershell@v2
-        with:
-          version: '7.x'
+      - name: Install PowerShell
+        run: |
+          curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+          sudo apt-add-repository https://packages.microsoft.com/ubuntu/$(lsb_release -cs)/prod
+          sudo apt-get update
+          sudo apt-get install -y powershell
 
       - name: Run PowerShell script to connect to remote server
         env:
