@@ -17,16 +17,16 @@ jobs:
           $password = ConvertTo-SecureString "${{ secrets.IIS_PASSWORD }}" -AsPlainText -Force
           $cred = New-Object System.Management.Automation.PSCredential("${{ secrets.IIS_USERNAME }}", $password)
 
-          # Invoke PowerShell command on the remote IIS server
+          # Try to connect to the remote server and deploy code
           Invoke-Command -ComputerName "${{ secrets.IIS_SERVER }}" -Credential $cred -ScriptBlock {
-              $deployPath = "D:\Inetpub\wwwroot\myDeploy"
-              $repoUrl = "https://$env:GITHUB_USER:$env:GITHUB_PAT@github.com/your-username/your-repo.git"
+              $deployPath = "D:\Ahtesham ul haq\Projects\Learning\Github\webdeploy\WebApplicationMy"
+              $repoUrl = "https://$env:GITHUB_USER:$env:GITHUB_PAT@ahtesham-haq/webdeploy.git"
               
               cd $deployPath
               Write-Output "Pulling latest code from GitHub..."
               git pull $repoUrl
               Write-Output "Deployment completed successfully."
-          }
+          } -ErrorAction Stop
         env:
           GITHUB_USER: ${{ secrets.GITHUB_USER }}
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
