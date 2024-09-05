@@ -13,7 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Run PowerShell script as Administrator
+      - name: Run PowerShell script as Administratorwww
         shell: pwsh
         run: |
           Start-Process -FilePath "pwsh" -ArgumentList "-ExecutionPolicy Bypass -File 'D:\Ahtesham ul haq\Projects\Learning\Github\webdeploy\WebApplicationMy\deploy.ps1'" -Verb RunAs -Wait
