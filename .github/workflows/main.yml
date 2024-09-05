@@ -1,4 +1,4 @@
-name: Deploy to IIS
+name: Run Script with Admin Rights
 
 on:
   push:
@@ -6,27 +6,14 @@ on:
       - main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: windows-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install PowerShell
+      - name: Run PowerShell script as Administrator
+        shell: pwsh
         run: |
-          # Download and install PowerShell
-          curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-          curl -fsSL https://packages.microsoft.com/config/ubuntu/22.04/prod.list | sudo tee /etc/apt/sources.list.d/mssql-release.list
-          sudo apt-get update
-          sudo apt-get install -y powershell
-
-      - name: Run PowerShell script to connect to remote servers
-        env:
-          IIS_USERNAME: ${{ secrets.IIS_USERNAME }}
-          IIS_PASSWORD: ${{ secrets.IIS_PASSWORD }}
-          IIS_SERVER: ${{ secrets.IIS_SERVER }}
-        run: |
-             pwsh -Command "& { Invoke-Command -ComputerName '10.10.16.164' -Credential (New-Object System.Management.Automation.PSCredential('ahtesham.ul.haq', (ConvertTo-SecureString 'x8st?frlz5QE' -AsPlainText -Force))) -ScriptBlock { Get-Process } }"
-
-
+          Start-Process pwsh -ArgumentList "D:\Ahtesham ul haq\Projects\Learning\Github\webdeploy\WebApplicationMy\deploy.ps1" -Verb RunAs -Wait
