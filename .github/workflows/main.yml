@@ -12,14 +12,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up PowerShell
-        uses: actions/setup-powershell@v2
-
       - name: Deploy to IIS Server
         run: |
           $password = ConvertTo-SecureString "${{ secrets.IIS_PASSWORD }}" -AsPlainText -Force
           $cred = New-Object System.Management.Automation.PSCredential("${{ secrets.IIS_USERNAME }}", $password)
 
+          # Invoke PowerShell command on the remote IIS server
           Invoke-Command -ComputerName "${{ secrets.IIS_SERVER }}" -Credential $cred -ScriptBlock {
               $deployPath = "D:\Inetpub\wwwroot\myDeploy"
               $repoUrl = "https://$env:GITHUB_USER:$env:GITHUB_PAT@github.com/your-username/your-repo.git"
