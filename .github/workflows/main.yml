@@ -14,6 +14,7 @@ jobs:
 
       - name: Deploy to IIS Server
         run: |
+          Write-Output "Can you see this"
           $password = ConvertTo-SecureString "${{ secrets.IIS_PASSWORD }}" -AsPlainText -Force
           $cred = New-Object System.Management.Automation.PSCredential("${{ secrets.IIS_USERNAME }}", $password)
 
