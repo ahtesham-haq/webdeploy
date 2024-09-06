@@ -1,4 +1,4 @@
-name: Check User Privileges
+name: Display File Content
 
 on:
   push:
@@ -6,19 +6,14 @@ on:
       - main
 
 jobs:
-  check-privileges:
+  display:
     runs-on: windows-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Check if current user is an administrator
+      - name: Display file content
         run: |
-          $principal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
-          if ($principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-              Write-Host "The current user is an administrator."
-              Get-Process
-          } else {
-              Write-Host "The current user is NOT an administrator."
-          }
+          echo "Displaying content of file.txt"
+          Get-Content -Path 'D:\deploy.ps1'  # Replace with the relative path to your file
