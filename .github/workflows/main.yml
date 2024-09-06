@@ -10,9 +10,6 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Set up deployment directory
         run: |
           echo "Changing to deployment directory..."
