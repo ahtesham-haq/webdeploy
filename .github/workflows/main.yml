@@ -16,4 +16,4 @@ jobs:
       - name: Display file content
         run: |
           echo "Displaying content of file.txt"
-          Get-Content -Path '\deploy.ps1'  # Replace with the relative path to your file
+          Get-Content -Path 'deploy.ps1'  # Replace with the relative path to your file
