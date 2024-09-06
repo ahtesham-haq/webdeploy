@@ -18,6 +18,7 @@ jobs:
           $principal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
           if ($principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
               Write-Host "The current user is an administrator."
+              Get-Process
           } else {
               Write-Host "The current user is NOT an administrator."
           }
