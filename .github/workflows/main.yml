@@ -1,4 +1,4 @@
-name: Deploy Application
+name: Check User Privileges
 
 on:
   push:
@@ -6,28 +6,18 @@ on:
       - main
 
 jobs:
-  deploy:
+  check-privileges:
     runs-on: windows-latest
 
     steps:
-      - name: Set up deployment directory
-        run: |
-          echo "Changing to deployment directory..."
-          cd 'D:\Ahtesham ul haq\Projects\Learning\Github\webdeploy\WebApplicationMy'
-          echo "Current directory:"
-          cd  # Print current directory
-          echo "Files in the deployment directory:"
-          dir  # List directory contents
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Deploy code
+      - name: Check if current user is an administrator
         run: |
-          echo "Deploying code..."
-          # Add your deployment commands here, for example, copy files or run scripts
-          # Example: Copy files from the repository to the deployment directory
-          Copy-Item -Path .\* -Destination 'D:\Ahtesham ul haq\Projects\Learning\Github\webdeploy\WebApplicationMy' -Recurse -Force
-          
-      - name: Confirm deployment
-        run: |
-          echo "Deployment complete."
-          cd 'D:\Ahtesham ul haq\Projects\Learning\Github\webdeploy\WebApplicationMy'
-          dir  # List directory contents to confirm files are copied
+          $principal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
+          if ($principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+              Write-Host "The current user is an administrator."
+          } else {
+              Write-Host "The current user is NOT an administrator."
+          }
