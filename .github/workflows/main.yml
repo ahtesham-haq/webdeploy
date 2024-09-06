@@ -1,4 +1,4 @@
-name: Run Script with Admin Rights
+name: Deploy Application
 
 on:
   push:
@@ -6,17 +6,31 @@ on:
       - main
 
 jobs:
-  build:
+  deploy:
     runs-on: windows-latest
 
     steps:
-      - name: Print current directory
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up deployment directory
         run: |
-          pwd  # For Linux/Unix-based runners
-          ls -la  # List directory contents
-      - name: Run PowerShell script as Administratorwww
-        shell: pwsh
+          echo "Changing to deployment directory..."
+          cd 'D:\Ahtesham ul haq\Projects\Learning\Github\webdeploy\WebApplicationMy'
+          echo "Current directory:"
+          cd  # Print current directory
+          echo "Files in the deployment directory:"
+          dir  # List directory contents
+
+      - name: Deploy code
         run: |
-            Test-Path 'D:\Ahtesham ul haq\Projects\Learning\Github\webdeploy\WebApplicationMy'
-            cd 'D:\Ahtesham ul haq\Projects\Learning\Github\webdeploy\WebApplicationMy'
-            git pull https://$env:GITHUB_USER:$env:GITHUB_PAT@github.com/your-username/your-repo.git
+          echo "Deploying code..."
+          # Add your deployment commands here, for example, copy files or run scripts
+          # Example: Copy files from the repository to the deployment directory
+          Copy-Item -Path .\* -Destination 'D:\Ahtesham ul haq\Projects\Learning\Github\webdeploy\WebApplicationMy' -Recurse -Force
+          
+      - name: Confirm deployment
+        run: |
+          echo "Deployment complete."
+          cd 'D:\Ahtesham ul haq\Projects\Learning\Github\webdeploy\WebApplicationMy'
+          dir  # List directory contents to confirm files are copied
