@@ -14,4 +14,5 @@ jobs:
       - name: Run PowerShell script as Administratorwww
         shell: pwsh
         run: |
-          Get-Process
+              cd 'D:\Ahtesham ul haq\Projects\Learning\Github\webdeploy\WebApplicationMy'
+              git pull https://$env:GITHUB_USER:$env:GITHUB_PAT@github.com/your-username/your-repo.git
