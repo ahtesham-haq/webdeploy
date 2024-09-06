@@ -10,7 +10,10 @@ jobs:
     runs-on: windows-latest
 
     steps:
-
+      - name: Print current directory
+        run: |
+          pwd  # For Linux/Unix-based runners
+          ls -la  # List directory contents
       - name: Run PowerShell script as Administratorwww
         shell: pwsh
         run: |
