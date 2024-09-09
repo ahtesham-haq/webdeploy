@@ -1,4 +1,4 @@
-name: Display File Content
+name: Deploy to Local IIS
 
 on:
   push:
@@ -6,14 +6,20 @@ on:
       - main
 
 jobs:
-  display:
-    runs-on: windows-latest
+  deploy:
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Display file content
-        run: |
-          echo "Displaying content of file.txt"
-          Get-Content -Path 'deploy.ps1'  # Replace with the relative path to your file
+    - name: Deploy using SSH
+      uses: appleboy/ssh-action@v0.1.5
+      with:
+        host: <your-server-ip>
+        username: user1
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          cd D:/Inetpub/wwwroot/myDeploy
+          git pull origin main
+          # You can also add additional steps like restarting IIS or clearing cache if necessary
