@@ -29,10 +29,6 @@ jobs:
       run: |
         msbuild "WebApplicationMy.sln" /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile /p:PublishUrl="D:\Ahtesham ul haq\Projects\Learning\Github\webdeploy\actions-runner\_work\webdeploy\webdeploy\publish"
 
-
-    - name: Publish application
-      run: msbuild WebApplicationMy.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile /p:PublishUrl=$(System.DefaultWorkingDirectory)/publish
-
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
