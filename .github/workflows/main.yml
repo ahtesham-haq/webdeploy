@@ -1,8 +1,9 @@
 name: Deploy to Local IIS
 
 on:
-  workflow_dispatch:
-
+  push:
+    branches:
+      - main  # Replace with your branch name if different
 jobs:
   build-and-deploy:
     runs-on: self-hosted
