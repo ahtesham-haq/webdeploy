@@ -12,13 +12,18 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
       
+    - name: Install NuGet CLI
+      uses: nuget/setup-nuget@v1
+    
+    - name: Restore dependencies
+      run: nuget restore WebApplicationMy.sln
 
 
     - name: Install MSBuild
       uses: microsoft/setup-msbuild@v1
       
     - name: Build application
-      run: msbuild YourSolution.sln /p:Configuration=Release
+      run: msbuild WebApplicationMy.sln /p:Configuration=Release
     
     - name: Publish application
       run: msbuild YourSolution.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile /p:PublishUrl=$(System.DefaultWorkingDirectory)/publish
