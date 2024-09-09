@@ -16,7 +16,7 @@ jobs:
     - name: Deploy using SSH
       uses: appleboy/ssh-action@v0.1.5
       with:
-        host: <your-server-ip>
+        host: localhost
         username: user1
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
