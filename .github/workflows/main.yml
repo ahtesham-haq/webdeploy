@@ -26,7 +26,8 @@ jobs:
       run: msbuild WebApplicationMy.sln /p:Configuration=Release
       
     - name: Publish application
-      run: msbuild WebApplicationMy.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile /p:PublishUrl=${{ github.workspace }}/publish
+      run: |
+        msbuild "WebApplicationMy.sln" /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile /p:PublishUrl="D:\Ahtesham ul haq\Projects\Learning\Github\webdeploy\actions-runner\_work\webdeploy\webdeploy\publish"
 
 
     - name: Publish application
