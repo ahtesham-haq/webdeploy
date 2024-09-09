@@ -16,7 +16,10 @@ jobs:
 
     - name: Install MSBuild
       uses: microsoft/setup-msbuild@v1
-
+      
+    - name: Install NuGet CLI
+      uses: nuget/setup-nuget@v1
+      
     - name: Restore dependencies
       run: nuget restore webdeploy.sln
 
