@@ -12,10 +12,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
       
-    - name: Set up .NET Framework
-      uses: microsoft/setup-dotnet@v1
-      with:
-        dotnet-version: '4.8'
+
 
     - name: Install MSBuild
       uses: microsoft/setup-msbuild@v1
