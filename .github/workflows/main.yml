@@ -1,25 +1,43 @@
 name: Deploy to Local IIS
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  build-and-deploy:
+    runs-on: self-hosted
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-
-    - name: Deploy using SSHHA
-      uses: appleboy/ssh-action@v0.1.5
+      
+    - name: Set up .NET Framework
+      uses: microsoft/setup-dotnet@v1
       with:
-        host: localhost
-        username: user1
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: |
-          cd D:/Inetpub/wwwroot/myDeploy
-          git pull origin main
-          # You can also add additional steps like restarting IIS or clearing cache if necessary
+        dotnet-version: '4.8'
+
+    - name: Install MSBuild
+      uses: microsoft/setup-msbuild@v1
+
+    - name: Restore dependencies
+      run: nuget restore webdeploy.sln
+
+    - name: Build application
+      run: msbuild YourSolution.sln /p:Configuration=Release
+    
+    - name: Publish application
+      run: msbuild YourSolution.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile /p:PublishUrl=$(System.DefaultWorkingDirectory)/publish
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: webapp-publish
+        path: $(System.DefaultWorkingDirectory)/publish
+    
+    - name: publish
+      shell: cmd
+      run: |
+        iisreset /stop
+        xcopy /s /y $(System.DefaultWorkingDirectory)/publish/*  
+        iisreset /start
+        
